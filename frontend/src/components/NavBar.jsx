@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { setItemWithExpiry } from "../lib/cache";
+import useUserInfo from "../hooks/UserInfo";
 import "./NavBar.css";
-import api from "../lib/api"
+import Logo from "../assets/logo.png"
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState(null);
+  const userInfo = useUserInfo();
 
   const handleSignIn = () => {
     const width = 600;
@@ -21,13 +23,12 @@ const NavBar = () => {
 
     // Listen for the token from the popup via postMessage
     const receiveMessage = (event) => {
-      console.log("Message received:", event);
       if (event.origin !== "http://localhost:10000") return;
       const { accessToken } = event.data;
 
       if (accessToken) {
-        console.log("Access token received:", accessToken);
-        localStorage.setItem("access_token", accessToken);
+        localStorage.clear();
+        setItemWithExpiry("access_token", accessToken, 3600000);
         navigate("/profile");
       }
     };
@@ -43,31 +44,15 @@ const NavBar = () => {
     }, 1000);
   };
 
-  const fetchUserInfo = async (token) => {
-    try {
-      const response = await api.get("/userinfo", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setFirstName(response.data.given_name);
-    } catch (error) {
-      console.error("Failed to fetch user info:", error);
-    }
-  };
-
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      fetchUserInfo(token);
-    }
-  }, []);
-
   return (
     <nav className="navbar">
-      <a className="logo" href="#">
-        AgreeMetrics
-      </a>
-      {firstName ? (
-        <h3 href="#">Welcome, {firstName}</h3>
+      <Link to="/">
+        <img src={Logo} alt="Agreemetrics logo" />
+      </Link>
+      {userInfo ? (
+        <Link to="/profile">
+          <h3>Welcome, {userInfo.given_name}</h3>
+        </Link>
       ) : (
         <a href="#" onClick={handleSignIn}>
           Sign in with DocuSign

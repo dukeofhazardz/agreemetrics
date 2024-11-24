@@ -101,13 +101,26 @@ async def get_user_info(client: DocuSignClient = Depends(get_docusign_client)):
         await client.close()
         
 
+@app.get("/envelopes")
+async def get_envelopes(
+    client: DocuSignClient = Depends(get_docusign_client), from_date: str = "2024-01-01T00:00:00Z"
+):
+    try:
+        account_id = await client.fetch_account_id()
+        envelopes = await client.fetch_envelopes(account_id, from_date)
+        return envelopes
+    finally:
+        await client.close()
+        
+
 @app.get("/documents")
 async def get_documents(
     client: DocuSignClient = Depends(get_docusign_client), from_date: str = "2024-01-01T00:00:00Z"
 ):
     try:
         account_id = await client.fetch_account_id()
-        documents = await client.fetch_documents(account_id, from_date)
+        envelopes = await client.fetch_envelopes(account_id, from_date)
+        documents = await client.fetch_documents(account_id, envelopes)
         return documents
     finally:
         await client.close()

@@ -77,7 +77,6 @@ header {
 
 .footer {
   grid-area: footer;
-  background-color: #7bf080;
   color: white;
   text-align: center;
   padding: 10px;

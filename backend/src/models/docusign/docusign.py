@@ -19,8 +19,8 @@ class DocuSignClient:
         """Fetch account ID from user info."""
         user_info = await self.fetch_user_info()
         return user_info["accounts"][0]["account_id"]
-
-    async def fetch_documents(self, account_id: str, from_date: str):
+    
+    async def fetch_envelopes(self, account_id: str, from_date: str):
         """Fetch envelopes."""
         response = await self.client.get(
             f"{settings.DOCUSIGN_API_URL}/{account_id}/envelopes",
@@ -28,14 +28,13 @@ class DocuSignClient:
             params={"from_date": from_date},
         )
         response.raise_for_status()
-        envelopes = response.json()["envelopes"]
-        document_list = []
+        return response.json()["envelopes"]
 
-        # Fetch document URIs for each envelope
-        for envelope in envelopes:
-            documents_uri = envelope.get("documentsUri")
-            if documents_uri:
-                document_list.append(f"{settings.DOCUSIGN_API_URL}/{account_id}{documents_uri}")
+    async def fetch_documents(self, account_id: str, envelopes):
+        """Fetch documents in envelope"""
+        document_list = [
+            f"{settings.DOCUSIGN_API_URL}/{account_id}{envelope.get("documentsUri")}" for envelope in envelopes if envelope.get("documentsUri")
+        ]
 
         # Fetch documents from document_list
         documents = []
@@ -47,6 +46,7 @@ class DocuSignClient:
             if document_response.status_code == 200:
                 document = document_response.json().get("envelopeDocuments", [])
                 documents.append({
+                    "document_id": document[0]["documentIdGuid"],
                     "document_name": document[0]["name"],
                     "document_uri": document[0]["uri"],
                 })

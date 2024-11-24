@@ -32,11 +32,6 @@ nav {
   padding: 0 30px;
 }
 
-nav .logo {
-  font-family: "Modak";
-  font-size: 1.6rem;
-}
-
-nav .logo:hover {
-  color: #000;
+nav img {
+  width: 60px;
 }

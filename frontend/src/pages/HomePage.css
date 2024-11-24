@@ -90,7 +90,7 @@
   }
 
   .jumbotron {
-    margin-top: -70px;
+    margin-top: -60px;
     display: grid;
     grid-auto-rows: 100svh;
     grid-template-columns: 2fr 1fr;
@@ -203,4 +203,13 @@
       }
     }
   }
+}
+
+.gradient-text-1,
+.gradient-text-2,
+.gradient-text-3,
+.gradient-text-4,
+.gradient-text-5 {
+  font-size: 3rem;
+  line-height: 1.2;
 }

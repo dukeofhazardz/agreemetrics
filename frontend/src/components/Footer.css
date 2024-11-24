@@ -1,0 +1,9 @@
+.myfooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.myfooter img {
+  width: 60px;
+}

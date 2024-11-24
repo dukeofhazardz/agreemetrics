@@ -1,0 +1,58 @@
+.card {
+  background: linear-gradient(90deg, #b5e65a, #7bf080);
+  padding: 10px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  background: #000;
+  border-radius: 30px;
+  padding: 20px;
+  height: 230px;
+}
+
+.card h3,
+.card p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card h3 {
+  position: relative;
+  max-width: 100%;
+}
+
+.card h3:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: #333;
+  color: #fff;
+  padding: 5px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  white-space: normal;
+  z-index: 1000;
+  width: max-content;
+  max-width: 300px;
+}
+
+.card a {
+  font-weight: 500;
+  color: #fff;
+  text-decoration: inherit;
+}
+.card a:hover {
+  color: #b5e65a;
+}

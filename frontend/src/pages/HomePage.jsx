@@ -5,10 +5,6 @@ import Face1 from "../assets/face1.png"
 import "./HomePage.css"
 
 const HomePage = () => {
-  const handleClick = () => {
-    alert("Button clicked! Redirecting...");
-    // Add navigation or functionality here
-  };
   return (
     <Layout>
       <div className="jumbotron site-main"> 
@@ -55,7 +51,6 @@ const HomePage = () => {
           </h5>
         </section>
       </div>
-      <Button onClick={handleClick}>Try Now</Button>
     </Layout>
   );
 };
