@@ -7,7 +7,7 @@ const DocumentCard = ({ documentName, documentUri }) => {
     <div className="card">
         <div>
           <h3 title={documentName} >{documentName}</h3>
-          <Link to="/dashboard">
+          <Link to={`/dashboard?document_name=${encodeURIComponent(documentName)}&document_uri=${encodeURIComponent(documentUri)}`}>
           <p>View Dashboard</p>
         </Link>
         </div>

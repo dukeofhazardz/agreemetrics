@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import useUserInfo from "../hooks/UserInfo";
 import EnvelopeCard from "../components/EnvelopeCard";
+import DocumentCard from "../components/DocumentCard";
 import { getItemWithExpiry, setItemWithExpiry } from "../lib/cache";
 import ProfileImg from "../assets/profile.png";
 import api from "../lib/api";
 import moment from "moment";
 import "./UserProfile.css";
-import DocumentCard from "../components/DocumentCard";
 
 const UserProfile = () => {
   const navigate = useNavigate();

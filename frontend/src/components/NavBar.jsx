@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { setItemWithExpiry } from "../lib/cache";
 import useUserInfo from "../hooks/UserInfo";
@@ -8,6 +8,28 @@ import Logo from "../assets/logo.png"
 const NavBar = () => {
   const navigate = useNavigate();
   const userInfo = useUserInfo();
+
+  useEffect(() => {
+    const receiveMessage = (event) => {
+      if (event.origin !== "http://localhost:10000") return;
+      const { accessToken } = event.data;
+
+      if (accessToken) {
+        localStorage.clear();
+        setItemWithExpiry("access_token", accessToken, 3600000);
+
+        if (userInfo) {
+          navigate("/profile");
+        }
+      }
+    };
+
+    window.addEventListener("message", receiveMessage, false);
+
+    return () => {
+      window.removeEventListener("message", receiveMessage, false);
+    };
+  }, [navigate, userInfo]);
 
   const handleSignIn = () => {
     const width = 600;
@@ -20,20 +42,6 @@ const NavBar = () => {
       "DocuSign Sign-In",
       `width=${width},height=${height},top=${top},left=${left}`
     );
-
-    // Listen for the token from the popup via postMessage
-    const receiveMessage = (event) => {
-      if (event.origin !== "http://localhost:10000") return;
-      const { accessToken } = event.data;
-
-      if (accessToken) {
-        localStorage.clear();
-        setItemWithExpiry("access_token", accessToken, 3600000);
-        navigate("/profile");
-      }
-    };
-
-    window.addEventListener("message", receiveMessage, false);
 
     // Clean up the event listener when the popup closes
     const checkPopup = setInterval(() => {

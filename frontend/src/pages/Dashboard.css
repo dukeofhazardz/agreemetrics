@@ -1,0 +1,75 @@
+.dashboard-grid {
+  display: grid;
+  height: auto;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "box1 box2 box3"
+    "box4 box4 box5"
+    "box6 box6 box6";
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.box {
+  background-color: #323232;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.box:hover {
+  color: #000;
+  background-image: linear-gradient(90deg, #b5e65a, #7bf080);
+}
+
+.box1 {
+  grid-area: box1;
+}
+.box2 {
+  grid-area: box2;
+}
+.box3 {
+  grid-area: box3;
+}
+.box4 {
+  grid-area: box4;
+  max-height: 300px;
+}
+.box5 {
+  grid-area: box5;
+  max-height: 300px;
+}
+.box6 {
+  grid-area: box6;
+  height: 400px;
+}
+
+.dashboard-section h1 {
+  text-align: center;
+}
+
+.box-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px;
+}
+
+.chart {
+  width: 100%;
+}
+
+.box-content h2 {
+    font-size: 2.5rem;
+}
+
+
+element.style {
+  box-sizing: border-box;
+  height: 260px;
+  display: block;
+  width: 800px;
+}
