@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getItemWithExpiry, setItemWithExpiry } from "../lib/cache";
@@ -8,6 +8,7 @@ import "./Dashboard.css";
 import GeneralCountChart from "../components/GeneralCountChart";
 import GeneralInfoChart from "../components/GeneralInfoChart";
 import RiskScoreChart from "../components/RiskScoreChart";
+import ClauseList from "../components/ClauseList";
 import getTotalCounts from "../lib/totalCount";
 
 const Dashboard = () => {
@@ -18,7 +19,7 @@ const Dashboard = () => {
   const documentName = queryParams.get("document_name");
   const documentUri = queryParams.get("document_uri");
   const [clauses, setClauses] = useState([]);
-  const [counts, setCounts] = useState({}); // getTotalCounts(clauses.value);
+  const [counts, setCounts] = useState({});
   const userInfo = useUserInfo();
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const Dashboard = () => {
             `/process?document_name=${documentName}&document_uri=${documentUri}`
           );
           setItemWithExpiry("clauses", response.data, 3600000);
-          setClauses(response.data);
+          setClauses(response.data || []);
           setCounts(getTotalCounts(response.data));
         } else {
           setClauses(cachedClauses);
@@ -58,25 +59,25 @@ const Dashboard = () => {
     <Layout>
       <section className="dashboard-section">
         {!clauses || clauses.length === 0 ? (
-          <p>Loading...</p>
+          <div className="spinner"></div>
         ) : (
           <div className="dashboard-grid">
             <div className="box box1">
               <div className="box-content">
-                <h2>{counts.totalClauses}</h2>
-                <h3>Clauses</h3>
+                <h2 className="clauses">{counts.totalClauses}</h2>
+                <h3 className="clauses">Clauses</h3>
               </div>
             </div>
             <div className="box box2">
               <div className="box-content">
-                <h2>{counts.totalRisks}</h2>
-                <h3>Risks</h3>
+                <h2 className="risks">{counts.totalRisks}</h2>
+                <h3 className="risks">Risks</h3>
               </div>
             </div>
             <div className="box box3">
               <div className="box-content">
-                <h2>{counts.totalRemedies}</h2>
-                <h3>Remedies</h3>
+                <h2 className="remedies">{counts.totalRemedies}</h2>
+                <h3 className="remedies">Remedies</h3>
               </div>
             </div>
             <div className="box box4">
@@ -98,6 +99,13 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+        )}
+      </section>
+      <section className="clause-list-section">
+        {!clauses || clauses.length === 0 ? (
+          <div className="spinner"></div>
+        ) : (
+          <ClauseList clauses={clauses.clauses} />
         )}
       </section>
     </Layout>

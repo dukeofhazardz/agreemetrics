@@ -29,7 +29,7 @@ const RiskScoreChart = ({ data }) => {
     { name: 'High Risks', value: riskCounts.high },
   ];
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
+  const COLORS = ['#FFBB28', '#007BFF', '#FF5733'];
 
   return (
     <div className="chart" style={{ width: '100%', height: 300 }}>

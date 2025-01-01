@@ -5,7 +5,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -32,8 +31,8 @@ const GeneralInfoChart = ({ data }) => {
           <YAxis />
           <Tooltip />
           <Area type="monotone" name="Risk Score" dataKey="risk_score" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} />
-          <Area type="monotone" name="Number of Risks" dataKey="num_risks" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.2} />
-          <Area type="monotone" name="Number of Remedies" dataKey="num_remedies" stroke="#ffc658" fill="#ffc658" fillOpacity={0.2} />
+          <Area type="monotone" name="Number of Risks" dataKey="num_risks" stroke="#FF5733" fill="#FF5733" fillOpacity={0.2} />
+          <Area type="monotone" name="Number of Remedies" dataKey="num_remedies" stroke="#28A745" fill="#28A745" fillOpacity={0.2} />
         </AreaChart>
       </ResponsiveContainer>
     </div>

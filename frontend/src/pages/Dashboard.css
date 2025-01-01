@@ -62,14 +62,68 @@
   width: 100%;
 }
 
+/* Loading Animation */
+
+.spinner {
+  border: 16px solid #b5e65a;
+  border-top: 16px solid #7bf080;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Text Styles*/
+
 .box-content h2 {
     font-size: 2.5rem;
 }
 
+.clauses {
+  color: #007BFF;
+}
 
-element.style {
-  box-sizing: border-box;
-  height: 260px;
-  display: block;
-  width: 800px;
+.risks {
+  color: #FF5733;
+}
+
+.remedies {
+  color: #28A745;
+}
+
+.title {
+  text-align: center;
+}
+
+/* Clause List Section */
+
+.clause-list-section {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #b5e65a;
+}
+
+.clause-item {
+  border: 1px solid #7bf080;
+  padding: 10px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagination span {
+  font-weight: bold;
 }

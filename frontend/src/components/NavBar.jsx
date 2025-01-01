@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { setItemWithExpiry } from "../lib/cache";
 import useUserInfo from "../hooks/UserInfo";
 import "./NavBar.css";
-import Logo from "../assets/logo.png"
+import Logo from "../assets/logo.png";
 
 const NavBar = () => {
   const navigate = useNavigate();
