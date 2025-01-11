@@ -13,3 +13,17 @@
 .custom-button:hover {
   background-color: #b5e65a;
 }
+
+@media (max-width: 320px) {
+  .custom-button {
+    padding: 5px 8px;
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 438px) {
+  .custom-button {
+    padding: 7px 10px;
+    font-size: 0.5rem;
+  }
+}

@@ -217,3 +217,59 @@
 .hero-text {
   font-size: 3rem;
 }
+
+@media (width <= 320px) {
+  .jumbotron {
+    grid-template-columns: 1fr;
+    gap: var(--size-5);
+  }
+
+  .hero-text,
+  .gradient-text-1,
+  .gradient-text-2,
+  .gradient-text-3,
+  .gradient-text-4,
+  .gradient-text-5 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .rotating-viewport {
+    display: none;
+  }
+}
+
+@media (width <= 650px) {
+  .hero-text,
+  .gradient-text-1,
+  .gradient-text-2,
+  .gradient-text-3,
+  .gradient-text-4,
+  .gradient-text-5 {
+    font-size: 3rem;
+    text-align: center;
+  }
+  .rotating-viewport {
+    display: none;
+  }
+}
+
+
+@media (width <= 768px) {
+  .jumbotron {
+    grid-template-columns: 1fr;
+    gap: var(--size-5);
+  }
+
+  .hero-text {
+    font-size: 2rem;
+  }
+
+  .gradient-text-1,
+  .gradient-text-2,
+  .gradient-text-3,
+  .gradient-text-4,
+  .gradient-text-5 {
+    font-size: 2rem;
+  }
+}

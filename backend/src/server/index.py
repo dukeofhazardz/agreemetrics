@@ -77,19 +77,20 @@ async def callback(request: Request):
         if response.status_code == 200:
             token_data = response.json()
             access_token = token_data.get("access_token")
-            
-        # Generate a success page that communicates with the parent window
+            if not access_token:
+                return {"error": "Access token not provided"}
+
+            # Generate a success page that communicates with the parent window
             html_content = f"""
             <script>
-                window.onload = function() {{
-                    // Send the token to the parent window using postMessage
-                    window.opener.postMessage({{"accessToken": "{access_token}"}}, "*");
-                    window.close();
-                }};
+               window.onload = function() {{
+                   // Send the token to the parent window using postMessage
+                   window.opener.postMessage({{"accessToken": "{access_token}"}}, "*");
+                   window.close();
+               }};
             </script>
             """
             return HTMLResponse(content=html_content)
-            #return {"accessToken": access_token}
         else:
             return {"error": response.text}
         

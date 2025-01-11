@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
-import useUserInfo from "../hooks/UserInfo";
 import EnvelopeCard from "../components/EnvelopeCard";
 import DocumentCard from "../components/DocumentCard";
 import { getItemWithExpiry, setItemWithExpiry } from "../lib/cache";
@@ -11,33 +9,36 @@ import moment from "moment";
 import "./UserProfile.css";
 
 const UserProfile = () => {
-  const navigate = useNavigate();
-  const userInfo = useUserInfo();
+  const userInfo = getItemWithExpiry("user_info");
   const [envelopes, setEnvelopes] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [name, setName] = useState("");
+  const accessToken = getItemWithExpiry("access_token");
 
   useEffect(() => {
-    if (!userInfo) {
-      navigate("/");
+    if (!userInfo || !accessToken) {
+      window.location.href = "/";
     } else if (userInfo.name !== name) {
       setName(userInfo.name);
     }
-  }, [navigate, userInfo]);
+  }, [userInfo]);
 
   useEffect(() => {
     const fetchEnvelopes = async () => {
       try {
         const cachedEnvelopes = getItemWithExpiry("envelopes") || [];
         if (cachedEnvelopes.length === 0) {
-          const response = await api.get("/envelopes");
+          const response = await api.get("/envelopes", {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
           setItemWithExpiry("envelopes", response.data, 3600000);
           setEnvelopes(response.data);
         } else {
           setEnvelopes(cachedEnvelopes);
         }
       } catch (error) {
-        console.error("Error fetching envelopes:", error);
         setEnvelopes([]);
       }
     };
@@ -46,23 +47,26 @@ const UserProfile = () => {
       try {
         const cachedDocuments = getItemWithExpiry("documents") || [];
         if (cachedDocuments.length === 0) {
-          const response = await api.get("/documents");
+          const response = await api.get("/documents", {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
           setItemWithExpiry("documents", response.data, 3600000);
           setDocuments(response.data);
         } else {
           setDocuments(cachedDocuments);
         }
       } catch (error) {
-        console.error("Error fetching envelopes:", error);
         setDocuments([]);
       }
-    }
+    };
 
     if (userInfo) {
       fetchEnvelopes();
       fetchDocuments();
     }
-  }, [userInfo]);
+  }, []);
 
   return (
     <Layout>

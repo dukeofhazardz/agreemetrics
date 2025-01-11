@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getItemWithExpiry, setItemWithExpiry } from "../lib/cache";
 import api from "../lib/api";
-import useUserInfo from "../hooks/UserInfo";
 import "./Dashboard.css";
 import GeneralCountChart from "../components/GeneralCountChart";
 import GeneralInfoChart from "../components/GeneralInfoChart";
@@ -13,22 +12,22 @@ import getTotalCounts from "../lib/totalCount";
 
 const Dashboard = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [name, setName] = useState("");
   const queryParams = new URLSearchParams(location.search);
   const documentName = queryParams.get("document_name");
   const documentUri = queryParams.get("document_uri");
   const [clauses, setClauses] = useState([]);
   const [counts, setCounts] = useState({});
-  const userInfo = useUserInfo();
+  const userInfo = getItemWithExpiry("user_info");
+  const accessToken = getItemWithExpiry("access_token");
 
   useEffect(() => {
-    if (!userInfo) {
-      navigate("/");
+    if (!userInfo || !accessToken) {
+      window.location.href = "/";
     } else if (userInfo.name !== name) {
       setName(userInfo.name);
     }
-  }, [navigate, userInfo]);
+  }, [userInfo]);
 
   useEffect(() => {
     const fetchClauses = async () => {
@@ -36,7 +35,8 @@ const Dashboard = () => {
         const cachedClauses = getItemWithExpiry("clauses") || [];
         if (cachedClauses.length === 0) {
           const response = await api.get(
-            `/process?document_name=${documentName}&document_uri=${documentUri}`
+            `/process?document_name=${documentName}&document_uri=${documentUri}`,
+            { headers: { Authorization: `Bearer ${accessToken}` } }
           );
           setItemWithExpiry("clauses", response.data, 3600000);
           setClauses(response.data || []);
@@ -46,14 +46,13 @@ const Dashboard = () => {
           setCounts(getTotalCounts(cachedClauses));
         }
       } catch (error) {
-        console.error("Error fetching clauses:", error);
         setClauses([]);
       }
     };
     if (userInfo) {
       fetchClauses();
     }
-  }, [userInfo, documentName, documentUri]);
+  }, [documentName, documentUri]);
 
   return (
     <Layout>

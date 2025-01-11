@@ -7,3 +7,9 @@
 .myfooter img {
   width: 60px;
 }
+
+@media (width <= 320px) {
+  .myfooter img {
+    width: 40px;
+  }
+}

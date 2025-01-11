@@ -15,13 +15,17 @@ export function getItemWithExpiry(key) {
     return null;
   }
 
-  const item = JSON.parse(itemStr);
-  const now = new Date();
+  try {
+    const item = JSON.parse(itemStr);
+    const now = new Date();
 
-  if (now.getTime() > item.expiry) {
-    localStorage.removeItem(key);
-    return null;
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+
+    return item.value;
+  } catch (error) {
+    return itemStr;
   }
-
-  return item.value;
 }

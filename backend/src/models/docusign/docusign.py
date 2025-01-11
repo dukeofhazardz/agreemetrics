@@ -28,7 +28,7 @@ class DocuSignClient:
             params={"from_date": from_date},
         )
         response.raise_for_status()
-        return response.json()["envelopes"]
+        return response.json()["envelopes"] if response.json()["envelopes"] else []
 
     async def fetch_documents(self, account_id: str, envelopes):
         """Fetch documents in envelope"""

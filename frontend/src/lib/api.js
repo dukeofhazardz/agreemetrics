@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getItemWithExpiry } from "./cache";
 
 const api = axios.create({
   baseURL: "http://localhost:10000",
@@ -8,7 +9,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const tokenObject = JSON.parse(localStorage.getItem("access_token"));
+    const tokenObject = getItemWithExpiry("access_token");
     if (tokenObject && tokenObject.value) {
       config.headers.Authorization = `Bearer ${tokenObject.value}`;
     }
