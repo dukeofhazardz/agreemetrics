@@ -80,14 +80,18 @@ Here's a breakdown of the app's main routes:
 1. **Home Page (`/`)**  
    - Displays the welcome screen and allows users to sign in via DocuSign.
    - Component: `HomePage`
+![home](https://github.com/user-attachments/assets/e9edb015-9809-46bc-b232-d224aa975c83)
 
 2. **Profile Page (`/profile`)**  
    - Shows the user's DocuSign profile and a summary of their documents.
    - Component: `UserProfile`
+![profile](https://github.com/user-attachments/assets/6e0be798-fc4f-4745-a4df-6d532cbb0ea6)
 
 3. **Dashboard Page (`/dashboard`)**  
    - A detailed analysis of clauses, risks, and remedies with interactive graphs.
    - Component: `Dashboard`
+![dashboard](https://github.com/user-attachments/assets/bea4c367-3f58-4964-aba6-d35dadcdcee8)
+![clauses](https://github.com/user-attachments/assets/9a577a1f-4de6-424d-82f6-1fa97c96d853)
 
 ---
 
