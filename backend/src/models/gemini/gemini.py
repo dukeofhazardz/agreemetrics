@@ -2,7 +2,6 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 from src.utils.helper import validate_and_normalize_response
 from src.settings.config import settings
-import os
 import json
 
 load_dotenv()

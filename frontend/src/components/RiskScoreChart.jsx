@@ -1,5 +1,12 @@
-import React from 'react';
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React from "react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const calculateRiskCounts = (data) => {
   const riskCounts = {
@@ -24,15 +31,15 @@ const calculateRiskCounts = (data) => {
 const RiskScoreChart = ({ data }) => {
   const riskCounts = calculateRiskCounts(data);
   const pieData = [
-    { name: 'Low Risks', value: riskCounts.low },
-    { name: 'Medium Risks', value: riskCounts.medium },
-    { name: 'High Risks', value: riskCounts.high },
+    { name: "Low Risks", value: riskCounts.low },
+    { name: "Medium Risks", value: riskCounts.medium },
+    { name: "High Risks", value: riskCounts.high },
   ];
 
-  const COLORS = ['#FFBB28', '#007BFF', '#FF5733'];
+  const COLORS = ["#FFBB28", "#007BFF", "#FF5733"];
 
   return (
-    <div className="chart" style={{ width: '100%', height: 300 }}>
+    <div className="chart" style={{ width: "100%", height: 300 }}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -45,7 +52,10 @@ const RiskScoreChart = ({ data }) => {
             label
           >
             {pieData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
             ))}
           </Pie>
           <Tooltip />

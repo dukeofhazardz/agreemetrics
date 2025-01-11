@@ -19,4 +19,4 @@ const getTotalCounts = (data) => {
   };
 };
 
-export default getTotalCounts
+export default getTotalCounts;

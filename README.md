@@ -49,7 +49,7 @@ Because understanding contracts shouldn’t require a law degree.
 ## Tech Stack 💻
 
 - **Frontend:** React, Recharts, Moment.js, Axios
-- **Backend:** FastAPI, Httpx
+- **Backend:** FastAPI, Httpx, Pydantic Settings
 - **AI Engine:** Google Gemini
 - **Authentication:** DocuSign API
 - **Styling:** CSS
